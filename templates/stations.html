@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Station Results</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Available Fuel Stations</h1>
+        {% for station in stations %}
+            <div class="station">
+                <h2>{{ station.name }}</h2> <!-- Replace with actual keys from the API response -->
+                <p>Wait Time: {{ station.wait_time }}</p>
+                <p>Brand: {{ station.brand }}</p>
+                <p>Fuel Price: {{ station.price }}</p>
+                <p>CO2 Emission Factors: {{ station.co2_emission }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
