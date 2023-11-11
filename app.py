@@ -1,4 +1,58 @@
 from flask import Flask, render_template, request
+import json
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('index.html')  # Ensure you have an 'index.html' template
+
+@app.route('/get_stations', methods=['POST'])
+def get_stations():
+    user_location = request.form['location']  # Assuming the user inputs their location
+
+    # Read data from JSON file instead of making an API call
+    try:
+        with open('stations_data.json', 'r') as file:
+            stations_data = json.load(file)
+        
+        # Process stations_data to filter based on user_location and other criteria
+        # This logic depends on how you want to process the data
+
+        return render_template('stations.html', stations=stations_data)  # Create a 'stations.html' template
+    except FileNotFoundError:
+        return "JSON file not found"
+    except json.JSONDecodeError:
+        return "Error in reading the JSON file"
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''from flask import Flask, render_template, request
 import requests
 
 app = Flask(__name__)
@@ -30,3 +84,4 @@ def get_stations():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    '''
