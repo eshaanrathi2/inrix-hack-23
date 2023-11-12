@@ -6,14 +6,19 @@
 </head>
 <body>
     <div class="container">
-        <h1>Available Fuel Stations</h1>
+        <h1>Available Fuel Stations in San Francisco</h1>
         {% for station in stations %}
             <div class="station">
-                <h2>{{ station.name }}</h2> <!-- Replace with actual keys from the API response -->
-                <p>Wait Time: {{ station.wait_time }}</p>
-                <p>Brand: {{ station.brand }}</p>
-                <p>Fuel Price: {{ station.price }}</p>
-                <p>CO2 Emission Factors: {{ station.co2_emission }}</p>
+                <h2>{{ station['name'] }}</h2>
+                <p>Address: {{ station['address'] }}</p>
+                <p>Wait Time: {{ station['wait_time'] }} minutes</p>
+                <p>Fuel Types and Prices:</p>
+                <ul>
+                    {% for fuel_type, price in station['fuel_prices'].items() %}
+                        <li>{{ fuel_type }}: ${{ price }}</li>
+                    {% endfor %}
+                </ul>
+                <a href="https://www.google.com/maps/dir/?api=1&destination={{ station['google_maps_link'] }}" target="_blank">Get Directions</a>
             </div>
         {% endfor %}
     </div>

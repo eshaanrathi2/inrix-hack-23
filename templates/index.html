@@ -3,7 +3,6 @@
 <head>
     <title>Fuel Station Finder</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <!-- Add your CSS file in the 'static' folder -->
 </head>
 <body>
     <div class="container">
@@ -12,9 +11,28 @@
             <input type="text" id="location" name="location" placeholder="Enter your location">
             <button type="submit">Find Stations</button>
         </form>
+
+        {% if stations %}
+            <h2>Fuel Stations in San Francisco</h2>
+            <div class="stations-list">
+                {% for station in stations %}
+                    <div class="station">
+                        <h3>{{ station.name }}</h3>
+                        <p><strong>Wait Time:</strong> {{ station.wait_time }} minutes</p>
+                        <p><strong>Address:</strong> {{ station.address }}</p>
+                        <p><strong>Fuel Types and Prices:</strong></p>
+                        <ul>
+                            {% for fuel, price in station.fuel_prices.items() %}
+                                <li>{{ fuel }} - ${{ price }}</li>
+                            {% endfor %}
+                        </ul>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination={{ station.google_maps_link }}" target="_blank">Get Directions</a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
 
-    <!-- Optional: Include JavaScript file -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

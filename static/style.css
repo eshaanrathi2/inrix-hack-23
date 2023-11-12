@@ -9,26 +9,66 @@ body {
     width: 80%;
     margin: auto;
     overflow: hidden;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
 }
 
 .station {
-    background: #fff;
+    background: #eef;
     padding: 20px;
     margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-h1, h2 {
+h1, h2, h3 {
     color: #333;
 }
 
-input[type="text"] {
-    width: 70%;
+input[type="text"], button {
     padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+input[type="text"] {
+    width: calc(70% - 22px); /* Adjust for padding and border */
+    display: block;
 }
 
 button {
-    padding: 10px 20px;
-    background: #333;
+    background: #0056b3;
     color: white;
     border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #004494;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 5px 0;
+}
+
+a {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Loading message styling */
+p {
+    color: #333;
+    text-align: center;
 }
