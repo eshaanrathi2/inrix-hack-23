@@ -1,0 +1,27 @@
+[
+    {
+        "city": "San Francisco",
+        "update_time": "2023-11-12T12:00:00",
+        "address": "123 Example Street",
+        "brands": ["Brand1", "Brand2"],
+        "costs": {"Brand1": 4.5, "Brand2": 4.7}
+    },
+    {
+        "city": "San Francisco",
+        "update_time": "2023-11-12T13:00:00",
+        "address": "456 Another Street",
+        "brands": ["Brand3"],
+        "costs": {"Brand3": 4.6}
+    },
+    {
+        "id": 930289127,
+        "brand": "Chevron",
+        "country": "US",
+        "address": "1100 Junipero Serra Blvd",
+        "city": "San Francisco",
+        "state": "CA",
+        "zipCode": "94132",
+        "phoneNumber": "+14155844565",
+    }
+
+]

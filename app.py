@@ -16,21 +16,28 @@ def index():
 
 @app.route('/get_stations', methods=['POST'])
 def get_stations():
-    user_location = request.form['location']  # Assuming the user inputs their location
+    user_location = request.form['location']
 
     try:
         with open('stations_data.json', 'r') as file:
             stations_data = json.load(file)
 
-        if not isinstance(stations_data, list) or not all(isinstance(station, dict) for station in stations_data):
-            return "Invalid data format in JSON file"
+        if not isinstance(stations_data, list):
+            return "JSON data format is incorrect - expected a list of objects"
 
         # Filter for stations in San Francisco
         sf_stations = [station for station in stations_data if station.get('city') == 'San Francisco']
 
-        # Add wait time and Google Maps link
+        # Add additional information for each station
         for station in sf_stations:
-            station['wait_time'] = calculate_wait_time(station.get('update_time'))
+            # Process each product for its type and price
+            station['fuels'] = [{product['type']: product['price']} for product in station.get('products', [])]
+
+            # Find the latest update date for calculating wait time
+            latest_update = max(product['updateDate'] for product in station.get('products', [])) if station.get('products') else None
+            station['wait_time'] = calculate_wait_time(latest_update)
+
+            # Add Google Maps link
             station['google_maps_link'] = get_directions_link(user_location, station.get('address'))
 
         return render_template('stations.html', stations=sf_stations)
@@ -39,14 +46,29 @@ def get_stations():
     except json.JSONDecodeError:
         return "Error in reading the JSON file"
 
-def calculate_wait_time(update_time_str):
-    if not update_time_str:
+def calculate_wait_time(updateDate):
+    if not updateDate:
         return None
     try:
-        update_time = datetime.fromisoformat(update_time_str)
-        current_time = datetime.now(pytz.timezone('America/Los_Angeles'))  # San Francisco timezone
-        wait_time = current_time - update_time
-        return wait_time.seconds // 60  # Convert to minutes
+        # Convert updateDate to a timezone-aware datetime object
+        updateDate = datetime.fromisoformat(updateDate)
+        updateDate = pytz.timezone('UTC').localize(updateDate)  # Assuming the updateDate is in UTC
+
+        # Get the current time in the same timezone as updateDate
+        current_time = datetime.now(pytz.timezone('America/Los_Angeles'))
+
+        # Convert updateDate to the 'America/Los_Angeles' timezone
+        updateDate_los_angeles = updateDate.astimezone(pytz.timezone('America/Los_Angeles'))
+
+
+        # Calculate the wait time in minutes
+        wait_time = current_time - updateDate_los_angeles
+        return wait_time  # minutes
+
+        # Calculate the wait time in seconds
+        wait_time = current_time - updateDate_los_angeles
+        return wait_time.total_seconds()  # Convert to total seconds
+    
     except ValueError:
         return None
 
@@ -54,8 +76,8 @@ def get_directions_link(user_location, station_address):
     if not user_location or not station_address:
         return None
     try:
-        directions_result = gmaps.directions(user_location, station_address)
-        return directions_result[0]['overview_polyline']['points']  # Simplified representation of the route
+        # Construct the Google Maps URL for directions
+        return f"https://www.google.com/maps/dir/?api=1&origin={user_location}&destination={station_address}"
     except Exception as e:
         print(f"Error getting directions: {e}")
         return None

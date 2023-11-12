@@ -17,16 +17,13 @@
             <div class="stations-list">
                 {% for station in stations %}
                     <div class="station">
-                        <h3>{{ station.name }}</h3>
-                        <p><strong>Wait Time:</strong> {{ station.wait_time }} minutes</p>
-                        <p><strong>Address:</strong> {{ station.address }}</p>
-                        <p><strong>Fuel Types and Prices:</strong></p>
-                        <ul>
-                            {% for fuel, price in station.fuel_prices.items() %}
-                                <li>{{ fuel }} - ${{ price }}</li>
-                            {% endfor %}
-                        </ul>
-                        <a href="https://www.google.com/maps/dir/?api=1&destination={{ station.google_maps_link }}" target="_blank">Get Directions</a>
+                        <h3>{{ station['name'] }}</h3>
+                        <p><strong>Wait Time:</strong> {{ station['wait_time'] }} minutes</p>
+                        <p><strong>Address:</strong> {{ station['address'] }}</p>
+                        <p><strong>City:</strong> {{ station['city'] }}</p>
+                        <p><strong>Fuel Type:</strong> {{ station['type'] }}</p>
+                        <p><strong>Price:</strong> {{ station['price'] }}</p>
+                        <a href="{{ station['google_maps_link'] }}" target="_blank">Get Directions</a>
                     </div>
                 {% endfor %}
             </div>

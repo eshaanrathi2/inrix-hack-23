@@ -1,9 +1,4 @@
-{
-    "copyright": "Copyright INRIX Inc.",
-    "versionNumber": "v1",
-    "createdDate": "2023-11-11T23:40:22.6875197Z",
-    "responseId": "a9b8e8d4-a719-4d7c-876d-d0035f80cdef",
-    "result": [
+[
         {
             "id": 930289127,
             "name": "Chevron",
@@ -6597,4 +6592,3 @@
             ]
         }
     ]
-}

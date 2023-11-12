@@ -11,14 +11,12 @@
             <div class="station">
                 <h2>{{ station['name'] }}</h2>
                 <p>Address: {{ station['address'] }}</p>
+                <p>City: {{ station['city'] }}</p>
                 <p>Wait Time: {{ station['wait_time'] }} minutes</p>
-                <p>Fuel Types and Prices:</p>
-                <ul>
-                    {% for fuel_type, price in station['fuel_prices'].items() %}
-                        <li>{{ fuel_type }}: ${{ price }}</li>
-                    {% endfor %}
-                </ul>
-                <a href="https://www.google.com/maps/dir/?api=1&destination={{ station['google_maps_link'] }}" target="_blank">Get Directions</a>
+                <p>Type: {{ station['type'] }}</p>
+                <p>Price: {{ station['price'] }}</p>
+
+                <a href="{{ station['google_maps_link'] }}" target="_blank">Get Directions</a>
             </div>
         {% endfor %}
     </div>
