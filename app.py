@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import json
+import gmplot
 
 app = Flask(__name__)
 
@@ -29,14 +30,16 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 
-
-
-
-
-
-
-
-
+#creating the map
+# Set the center of the map and your Google Maps API key
+latitude, longitude = 37.7749, -122.4194  # San Francisco coordinates
+gmap = gmplot.GoogleMapPlotter(latitude, longitude, 12)  # 12 is the zoom level
+# Add a marker
+gmap.marker(latitude, longitude, title="Hello World!", color='blue')
+# You can add more markers in a similar way
+gmap.marker(37.775, -122.419, title="Another Marker", color='green')
+# Draw the map to an HTML file
+gmap.draw("index.html")
 
 
 
