@@ -37,9 +37,9 @@ gmap = gmplot.GoogleMapPlotter(latitude, longitude, 12)  # 12 is the zoom level
 # Add a marker
 gmap.marker(latitude, longitude, title="Hello World!", color='blue')
 # You can add more markers in a similar way
-gmap.marker(37.775, -122.419, title="Another Marker", color='green')
+gmap.marker(37.7181952, -122.4729085, title="Chevron", color='green')
 # Draw the map to an HTML file
-gmap.draw("index.html")
+gmap.draw("map.html")
 
 
 

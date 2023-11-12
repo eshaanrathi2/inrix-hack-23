@@ -6,6 +6,7 @@
     <!-- Add your CSS file in the 'static' folder -->
 </head>
 <body>
+    <!-- search bar -->
     <div class="container">
         <h1>Welcome to Fuel Station Finder</h1>
         <form action="/get_stations" method="post">
@@ -14,6 +15,11 @@
         </form>
     </div>
     
+    <!-- Map -->
+    <div class="google-map">
+        <iframe src="[Url from python code]" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+   </div>
+
     <!-- Optional: Include JavaScript file -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
